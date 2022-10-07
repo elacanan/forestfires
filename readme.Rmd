@@ -4,6 +4,9 @@ output: html_document
 date: "2022-10-07"
 ---
 
+this is test
+
+
 Short description of the project:
 Problem: Forest fires are creating economical and ecological damage while endangering human lives.
  
