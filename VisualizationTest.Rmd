@@ -1,0 +1,34 @@
+---
+title: "Visualization Test"
+output: html_document
+date: "2022-10-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load dataset
+```{r}
+library(dplyr)
+
+forestfires <- read.csv(file="forestfires.csv")
+
+#head(forestfires)
+#glimpse(forestfires)
+```
+
+```{r}
+library(ggplot2)
+
+forestfires_monthorder <- forestfires
+forestfires_monthorder$month <- factor(forestfires_monthorder$month, 
+                                 levels = c("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"))
+
+ggplot(forestfires_monthorder, aes(x = month, y = area, fill=month)) + 
+  geom_bar(stat="summary", fun="mean") + 
+  ggtitle("Average Burned Area of Forest Per Month") + 
+  xlab("Month") + ylab("Average Burned Area (ha)") + 
+  theme(legend.position = "none")
+```
+
