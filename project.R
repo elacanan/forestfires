@@ -19,10 +19,10 @@ summary(temp.lm)
 
 
 
-cormat <- forestfires %>% cor()
+cormat <- forestfires%>%select_if(is.numeric)%>%na.omit %>% cor(use="pair")
 cormat
 
-cormat %>% as.data.frame %>% rownames_to_column("var1")
+#cormat_1 <-cormat %>% as.data.frame %>% rownames_to_column("var1")
 
 tidycor <- cormat %>%
   as.data.frame %>%
@@ -34,6 +34,6 @@ tidycor
 tidycor %>% ggplot(aes(var1, var2, fill=correlation)) + 
   geom_tile() + 
   scale_fill_gradient2(low="red", mid="white", high = "blue") +
-  geom_text(aes(label=round(correlation,2)),color = "black", size = 4)+ #overlays correlation values
+  geom_text(aes(label=round(correlation,2)),color = "black", size = 2)+ #overlays correlation values
   theme(axis.text.x = element_text(angle = 90)) + #flips the x-axis labels
   coord_fixed()
