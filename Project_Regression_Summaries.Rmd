@@ -1,0 +1,54 @@
+---
+title: "Forest Fire Prediction: Regression Task"
+author: "SDS322E"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+---
+
+```{r global_options, include=FALSE}
+#DO NOT EDIT THIS CHUNK OR ANYTHING ABOVE IT!
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = "center", warning = F, message = F, tidy=T, tidy.opts=list(width.cutoff=50), R.options=list(max.print=100,dplyr.print_max=100))
+```
+
+*Since temperature seems to be negatively correlated with RH (relative humidity) and positively correlated with DC (drought code), we will create a linear regression model to see how well we can predict the area of a forest fire with temperature as the only predictor.*
+
+```{R}
+rm(list = ls(all.names = TRUE)) # will clear all objects includes hidden objects.
+gc() # free up memory and report the memory usage.
+```  
+
+
+## R
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+# Read data in R
+
+df <- read.csv(file="forestfires.csv")
+```
+
+```{r}
+# Linear Regression on full data
+
+area.lm <- lm(area ~ temp, data = df)
+summary(area.lm)
+```
+
+```{r}
+# Linear Regression on inlier data
+
+df_inlier <- df %>%
+  filter(area < 600) %>%
+  filter(area > 0)
+
+areainlier.lm <- lm(area ~ temp, data = df_inlier)
+summary(areainlier.lm)
+```
+
