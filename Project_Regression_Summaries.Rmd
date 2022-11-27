@@ -34,16 +34,26 @@ library(tidyverse)
 df <- read.csv(file="forestfires.csv")
 ```
 
+## Investigate data
 ```{r}
-# Linear Regression on full data
+df %>%
+  filter(area == 0) %>%
+  arrange(temp) %>%
+  select(temp, area)
+```
 
+We can see that there are many instances of area = 0 across all observed temperatures.
+
+
+
+## Linear Regression on Full Data
+```{r}
 area.lm <- lm(area ~ temp, data = df)
 summary(area.lm)
 ```
 
+## Linear Regression on Inlier Data
 ```{r}
-# Linear Regression on inlier data
-
 df_inlier <- df %>%
   filter(area < 600) %>%
   filter(area > 0)
@@ -51,4 +61,3 @@ df_inlier <- df %>%
 areainlier.lm <- lm(area ~ temp, data = df_inlier)
 summary(areainlier.lm)
 ```
-

@@ -1524,17 +1524,79 @@ area of a forest fire with temperature as the only predictor.</em></p>
 <pre class="r"><code>rm(list = ls(all.names = TRUE))  # will clear all objects includes hidden objects.
 gc()  # free up memory and report the memory usage.</code></pre>
 <pre><code>##          used (Mb) gc trigger (Mb) max used (Mb)
-## Ncells 539103 28.8    1213208 64.8   654171 35.0
-## Vcells 983334  7.6    8388608 64.0  1770549 13.6</code></pre>
+## Ncells 539124 28.8    1213268 64.8   654171 35.0
+## Vcells 983434  7.6    8388608 64.0  1770549 13.6</code></pre>
 <div id="r" class="section level2">
 <h2>R</h2>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre class="r"><code># Read data in R
 
 df &lt;- read.csv(file = &quot;forestfires.csv&quot;)</code></pre>
-<pre class="r"><code># Linear Regression on full data
-
-area.lm &lt;- lm(area ~ temp, data = df)
+</div>
+<div id="investigate-data" class="section level2">
+<h2>Investigate data</h2>
+<pre class="r"><code>df %&gt;%
+    filter(area == 0) %&gt;%
+    arrange(temp) %&gt;%
+    select(temp, area)</code></pre>
+<pre><code>##    temp area
+## 1   4.2    0
+## 2   5.2    0
+## 3   5.3    0
+## 4   5.3    0
+## 5   5.5    0
+## 6   6.7    0
+## 7   8.0    0
+## 8   8.2    0
+## 9   8.3    0
+## 10  8.3    0
+## 11  8.7    0
+## 12  8.9    0
+## 13  9.0    0
+## 14  9.3    0
+## 15  9.8    0
+## 16 10.1    0
+## 17 10.3    0
+## 18 10.4    0
+## 19 10.5    0
+## 20 10.6    0
+## 21 10.6    0
+## 22 10.6    0
+## 23 11.0    0
+## 24 11.2    0
+## 25 11.3    0
+## 26 11.3    0
+## 27 11.4    0
+## 28 11.5    0
+## 29 11.6    0
+## 30 11.6    0
+## 31 11.6    0
+## 32 11.8    0
+## 33 11.8    0
+## 34 12.2    0
+## 35 12.3    0
+## 36 12.6    0
+## 37 12.7    0
+## 38 12.7    0
+## 39 12.9    0
+## 40 13.1    0
+## 41 13.4    0
+## 42 13.7    0
+## 43 13.8    0
+## 44 13.8    0
+## 45 13.8    0
+## 46 13.9    0
+## 47 14.0    0
+## 48 14.1    0
+## 49 14.2    0
+## 50 14.2    0
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 197 rows ]</code></pre>
+<p>We can see that there are many instances of area = 0 across all
+observed temperatures.</p>
+</div>
+<div id="linear-regression-on-full-data" class="section level2">
+<h2>Linear Regression on Full Data</h2>
+<pre class="r"><code>area.lm &lt;- lm(area ~ temp, data = df)
 summary(area.lm)</code></pre>
 <pre><code>## 
 ## Call:
@@ -1554,9 +1616,10 @@ summary(area.lm)</code></pre>
 ## Residual standard error: 63.41 on 515 degrees of freedom
 ## Multiple R-squared:  0.009573,   Adjusted R-squared:  0.00765 
 ## F-statistic: 4.978 on 1 and 515 DF,  p-value: 0.0261</code></pre>
-<pre class="r"><code># Linear Regression on inlier data
-
-df_inlier &lt;- df %&gt;%
+</div>
+<div id="linear-regression-on-inlier-data" class="section level2">
+<h2>Linear Regression on Inlier Data</h2>
+<pre class="r"><code>df_inlier &lt;- df %&gt;%
     filter(area &lt; 600) %&gt;%
     filter(area &gt; 0)
 
