@@ -14,8 +14,15 @@ forestfires$day <- recode(forestfires$day, "sun"= 7, "mon"= 1, "tue"= 2, "wed"= 
 ## Convert month to number
 forestfires$month <- recode(forestfires$month, "jan"=1, "feb"=2, "mar"=3, "apr"=4, "may"=5, "jun"=6, "jul"=7, "aug"=8,"sep"=9,"oct"=10,"nov"=11, "dec"=12)
 
-forestfires <- forestfires %>% na.omit()
+# 247 rows have area 0
+forestfires$area <- cut(forestfires$area, breaks=c(0, 50, 3000), labels=c(1, 2))
+forestfires <- forestfires %>% mutate(area = as.character(area), area = ifelse(is.na(area), 0, area), area = as.numeric(area))
+
+forestfires %>% filter(area ==1)
+glimpse(forestfires)
 ```
+
+
 
 ```{r}
 sil_width <-vector()
@@ -29,40 +36,19 @@ for(i in 2:10){
 ggplot() + 
   geom_line(aes(x=1:10,y=sil_width)) +
   scale_x_continuous(name="k",breaks=1:10) +
-  scale_y_continuous(name="Silhouette Width (PAM)")
-
-for(i in 2:10){
-  kms <- kmeans(forestfires, i)
-  sil <- silhouette(kms$cluster, dist(forestfires))
-  sil_width[i]<-mean(sil[,3])
-}
-
-ggplot() + 
-  geom_line(aes(x=1:10,y=sil_width)) +
-  scale_x_continuous(name="k",breaks=1:10) +
-  scale_y_continuous(name="Silhouette Width (K-Means)")
+  scale_y_continuous(name="Silhouette Width")
   
 
 ff_pam <- pam(forestfires, 2)
-ff_kms <- kmeans(forestfires, 2)
-
 
 forestfires <- forestfires %>% mutate(cluster=ff_pam$clustering) %>% mutate(cluster_factor=as.factor(ff_pam$clustering))
 
+area.labs <- c("Area = 0", "0 < Area < 50", "Area >= 50")
+names(area.labs) <- c(0, 1, 2)
 
-forestfires_2 <- forestfires %>% filter(cluster==2)
+forestfires %>% ggplot(aes(month)) + geom_bar(aes(fill=cluster_factor), position = position_dodge(), stat="count") + scale_x_continuous(name="Month", breaks=1:12) + theme_classic() + scale_y_continuous(name="Count") +  scale_fill_discrete(name="Cluster") + facet_wrap(~area, labeller = labeller(area=area.labs))
 
-forestfires_3 <- forestfires %>% filter(area != 0)
-glimpse(forestfires_3)
-forestfires %>% filter(cluster==1) %>% arrange(-area)
-
-forestfires %>% filter(month==1)
-forestfires %>% filter(area > 600)
-
-new_ff <- forestfires %>% filter(area < 600) 
-
-
-new_ff %>% ggplot(aes(month, area, color=cluster_factor)) + geom_point() + scale_x_continuous(name="Month", breaks=1:12) + scale_y_continuous(name="Burned Area of Forest (ha)") + theme_classic() + scale_color_manual(name="Cluster", values=c("red", "blue"), labels=c("1", "2")) + ggtitle("Burned Area of Forest vs Month")
+forestfires %>% ggplot(aes(month)) + geom_bar(aes(fill=as.factor(area)), position = position_dodge(), stat="count") %>% facet_grid(~cluster_factor)
 ```
 
 ```{r}
