@@ -1,0 +1,12 @@
+---
+title: "forest fires website"
+author: "Ela"
+date: "2022-12-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Placeholder for website
