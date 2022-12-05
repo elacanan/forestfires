@@ -5,33 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Description</title>
     <link rel= "stylesheet" href= "styles.css">
+    <style>
+        .wrapper{
+            display: inline-block;
+            border: 25px solid #FF664B;
+            margin: 20px;
+        }
+        img{
+            border: 20px solid #FF664B;
+        }
+    </style>
 </head>
 <body>
-    <h1>Data Description</h1>
-    <p>
-        The original dataset has 517 observations and 13 variables collected from January 2000 to December 2003 in Montesinho National Park, Portugal. 
-        The target variable is “area”, which is the burned area of the forest in hectares. Input variables include indexes from the 
-        Canadian danger rating system of Fire Weather Indexes (FWI) such as FFMC (Fine Fuel Moisture Code Index), 
-        DMC (Duff Moisture Code Index), DC (Drought Code Index), and ISI (Initial Spread Index). In addition to these variables, 
-        the dataset also includes x and y spatial coordinates within the park map, the month and day of
-        of each observation, temperature, RH (Relative Humidity), wind speed, and outside rain.
-    </p>
-    <p><img src="fwichart.png" style=width:50%></p>
-    <h4>Picture: Structure of the Canadian Forest Fire Weather Index (FWI) System</h4>
-    <p>
-        For modeling purposes, we first checked if there were missing values in the dataset because
-        further calculations with missing values would be inaccurate and unacceptable.
-        Then, we converted the "month" and "day" variables to be numeric, where 1 represents January 
-        for the "month" variable and 1 represents Monday for the "day" variable.
-    </p>
-    <p>
-        In addition, we noticed that there are 247 observations in the dataset that have a value of 0 for 
-        burned area of forest, which could have an effect on our results. Therefore,
-        we switched the variable type of "area" from continuous to discrete. Then, we 
-        split the area into different scales, where areas equal to 0 have a level of 0, areas
-        between 0 and 50 have a level of 1, and areas that are 50 or greater have a level of 2.
-    </p>
-    <p><img src="area_var.png" style=width:50%></p>
-    <a href="index.html">Home</a>
+    <div class="wrapper">
+        <h1>Data Description</h1>
+        <p>
+            The original dataset has 517 observations and 13 variables collected from January 2000 to December 2003 in Montesinho National Park, Portugal. 
+            The target variable is “area”, which is the burned area of the forest in hectares. Input variables include indexes from the 
+            Canadian danger rating system of Fire Weather Indexes (FWI) such as FFMC (Fine Fuel Moisture Code Index), 
+            DMC (Duff Moisture Code Index), DC (Drought Code Index), and ISI (Initial Spread Index). In addition to these variables, 
+            the dataset also includes x and y spatial coordinates within the park map, the month and day of
+            of each observation, temperature, RH (Relative Humidity), wind speed, and outside rain.
+        </p>
+        <p><img src="fwichart.png" style=width:50%></p>
+        <h4>Picture: Structure of the Canadian Forest Fire Weather Index (FWI) System</h4>
+        <p>
+            For modeling purposes, we first checked if there were missing values in the dataset because
+            further calculations with missing values would be inaccurate and unacceptable.
+            Then, we converted the "month" and "day" variables to be numeric, where 1 represents January 
+            for the "month" variable and 1 represents Monday for the "day" variable.
+        </p>
+        <p>
+            In addition, we noticed that there are 247 observations in the dataset that have a value of 0 for 
+            burned area of forest, which could have an effect on our results. Therefore,
+            we switched the variable type of "area" from continuous to discrete. Then, we 
+            split the area into different scales, where areas equal to 0 have a level of 0, areas
+            between 0 and 50 have a level of 1, and areas that are 50 or greater have a level of 2.
+        </p>
+        <p><img src="area_var.png" style=width:50%></p>
+        <a href="index.html">Home</a>
+    </div>
 </body>
 </html>
