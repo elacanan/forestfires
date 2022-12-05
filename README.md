@@ -1,2 +1,33 @@
 # Forest Fires
-hi
+
+### Problem: 
+Forest fires are creating economical and ecological damage while endangering human lives.
+ 
+### Goals: 
+Use regression models and visualizations to predict the burned area of forest fires in the northeast region of Portugal from meteorological and other predictors known to influence forest fires. 
+
+### Link to data: 
+https://archive.ics.uci.edu/ml/machine-learning-databases/forest-fires/ 
+
+### Information About the Data: 
+This is a multivariate data set with 517 entries. There are 13 different variables collected per data entry including x (spatial coordinate within the Montesinho park map), y (spatial coordinate within the Montesinho park map), month, day, FFMC, DMC, DC, ISI, temp, RH, wind, rain, and area. The list below has a description of each variable: 
+ 
+1. X - x-axis spatial coordinate within the Montesinho park map: 1 to 9
+2. Y - y-axis spatial coordinate within the Montesinho park map: 2 to 9
+3. month - month of the year: 'jan' to 'dec'
+4. day - day of the week: 'mon' to 'sun'
+5. FFMC - FFMC index from the FWI system: 18.7 to 96.20
+6. DMC - DMC index from the FWI system: 1.1 to 291.3
+7. DC - DC index from the FWI system: 7.9 to 860.6
+8. ISI - ISI index from the FWI system: 0.0 to 56.10
+9. temp - temperature in Celsius degrees: 2.2 to 33.30
+10. RH - relative humidity in %: 15.0 to 100
+11. wind - wind speed in km/h: 0.40 to 9.40
+12. rain - outside rain in mm/m2 : 0.0 to 6.4
+13. area - the burned area of the forest (in ha): 0.00 to 1090.84
+ 
+### Data Source:
+The dataset includes information provided by meteorological stations that includes data such as meteorological conditions (temperature or wind) that are commonly known factors to influence forest fires, data that is also used to determine the Forest Fire Weather Index (FWI). 
+ 
+### References: 
+P. Cortez and A. Morais. A Data Mining Approach to Predict Forest Fires using Meteorological Data. In J. Neves, M. F. Santos and J. Machado Eds., New Trends in Artificial Intelligence, Proceedings of the 13th EPIA 2007 - Portuguese Conference on Artificial Intelligence, December, Guimarães, Portugal, pp. 512-523, 2007. APPIA, ISBN-13 978-989-95618-0-9
