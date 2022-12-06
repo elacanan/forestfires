@@ -1,0 +1,30 @@
+---
+title: "DCtemp"
+author: "Wenting"
+date: "2022-11-26"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(cluster)
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+forestfires<-read.csv("forestfires.csv")
+```
+```{r}
+forestfires%>%na.omit
+forestfires$month <- recode(forestfires$month, "jan"="1", "feb"="2", "mar"="3", "apr"="4", "may"="5", "jun"="6", "jul"="7","aug"="8","sep"="9","oct"="10","nov"="11", "dec"="12")
+forestfires%>%group_by(month)%>%summarise(n())
+
+ggplot(forestfires,aes(x=temp,y=DC)) + geom_point() + geom_smooth(method="lm")
+ggplot(forestfires,aes(x=temp,y=DC,fill=month,color=month)) + geom_point() + geom_smooth(method="lm")
+ggplot(forestfires,aes(x=temp,y=DC,fill=month,color=month)) + geom_point() 
+p1<-ggplot(forestfires,aes(x=month,y=DC)) + geom_line()
+p2 <-ggplot(forestfires,aes(x=month,y=temp)) + geom_line()
+p1 + p2
+```
+```{r}
+ggplot(forestfires,aes(x=temp,y=DC,fill=month,color=month)) +facet_grid(month~.)+ geom_point() + geom_smooth(method="lm")
+```
